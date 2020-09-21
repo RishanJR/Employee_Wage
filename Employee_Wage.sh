@@ -15,6 +15,9 @@ NUMBER_OF_WORKING_DAYS=0
 NUMBER_OF_HOURS=0
 TOTAL_WAGE=0
 
+#Declaring dictionary with key as days and values as daily wages
+declare -A DAILY_WAGES
+
 #Function to get the work hours
 function work_hours() {
 	ATTENDANCE=$(( RANDOM%3 ))
@@ -43,12 +46,13 @@ do
 
 	if [ $NUMBER_OF_HOURS -lt 100 ]
 	then
-		DAILY_WAGE[$NUMBER_OF_WORKING_DAYS]=$(( $RES*$WAGE_PER_HOUR ))
+		DAILY_WAGES["DAY"$NUMBER_OF_WORKING_DAYS]=$(( $RES*$WAGE_PER_HOUR ))
 		TOTAL_WAGE=$(( $NUMBER_OF_HOURS*$WAGE_PER_HOUR ))
 	fi
 
 done
 
 echo The number of hours worked is $NUMBER_OF_HOURS and the number days is $NUMBER_OF_WORKING_DAYS
-echo The daily wages earned by the employee is ${DAILY_WAGE[@]}
+echo Days ${!DAILY_WAGES[@]}
+echo Wages ${DAILY_WAGES[@]}
 echo The total wages earned by the employee is $TOTAL_WAGE

@@ -12,8 +12,8 @@ MAX_WORKING_HOURS=100
 
 #Variables
 NUMBER_OF_WORKING_DAYS=0
-TOTAL_WAGE=0
 NUMBER_OF_HOURS=0
+TOTAL_WAGE=0
 
 #Function to get the work hours
 function work_hours() {
@@ -43,25 +43,12 @@ do
 
 	if [ $NUMBER_OF_HOURS -lt 100 ]
 	then
-		if [ $RES -eq 8 ]
-		then
-			echo The employee is present and worked full time
-		elif [ $RES -eq 4 ]
-		then
-			echo The employee is present and worked half time
-		elif [ $RES -eq 0 ]
-		then
-			echo The employee is absent
-		else
-			echo Unpresedented situation occured
-		fi
-
-		DAILY_WAGE=$(( $RES*$WAGE_PER_HOUR ))
-		echo -e "The Daily Employee wage is $DAILY_WAGE \n"
-		TOTAL_WAGE=$(( $TOTAL_WAGE+$DAILY_WAGE ))
+		DAILY_WAGE[$NUMBER_OF_WORKING_DAYS]=$(( $RES*$WAGE_PER_HOUR ))
+		TOTAL_WAGE=$(( $NUMBER_OF_HOURS*$WAGE_PER_HOUR ))
 	fi
 
 done
 
-echo The total wages earned by the employee is $TOTAL_WAGE
 echo The number of hours worked is $NUMBER_OF_HOURS and the number days is $NUMBER_OF_WORKING_DAYS
+echo The daily wages earned by the employee is ${DAILY_WAGE[@]}
+echo The total wages earned by the employee is $TOTAL_WAGE
